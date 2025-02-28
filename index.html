@@ -264,8 +264,8 @@
         // 根据不同的转换类型，设置方向选项
         let options = "";
         if (type === "birmChina") {
-          options += `<option value="birmToChina">伯明翰 -> 中国985</option>`;
-          options += `<option value="chinaToBirm">中国985 -> 伯明翰</option>`;
+          options += `<option value="birmToChina">英格兰 -> 中国985</option>`;
+          options += `<option value="chinaToBirm">中国985 -> 英格兰</option>`;
         } else if (type === "stChina") {
           options += `<option value="stToChina">圣安德鲁斯 -> 中国985</option>`;
           options += `<option value="chinaToSt">中国985 -> 圣安德鲁斯</option>`;
@@ -306,13 +306,13 @@
           const birmScore = convertStAndrewsToBirmingham(inputScore);
           degree = getDegreeForStAndrews(inputScore);
           comment = getCommentForDegree(degree);
-          output = `圣安德鲁斯分数 ${inputScore.toFixed(2)} 对应伯明翰分数为 ${birmScore.toFixed(2)}.`;
+          output = `圣安德鲁斯分数 ${inputScore.toFixed(2)} 对应英格兰分数为 ${birmScore.toFixed(2)}.`;
         } else {
           // 假定输入在伯明翰分数范围
           const stScore = convertBirminghamToStAndrews(inputScore);
           degree = getDegreeForBirmingham(inputScore);
           comment = getCommentForDegree(degree);
-          output = `伯明翰分数 ${inputScore.toFixed(2)} 对应圣安德鲁斯分数为 ${stScore.toFixed(2)}.`;
+          output = `英格兰分数 ${inputScore.toFixed(2)} 对应圣安德鲁斯分数为 ${stScore.toFixed(2)}.`;
         }
       } else if (conversionType === "birmChina") {
         const direction = directionSelect.value;
@@ -320,12 +320,12 @@
           const chinaScore = convertBirminghamToChina985(inputScore);
           degree = getDegreeForBirmingham(inputScore);
           comment = getCommentForDegree(degree);
-          output = `伯明翰分数 ${inputScore.toFixed(2)} 对应中国985分数为 ${chinaScore.toFixed(2)}.`;
+          output = `英格兰分数 ${inputScore.toFixed(2)} 对应中国985分数为 ${chinaScore.toFixed(2)}.`;
         } else if (direction === "chinaToBirm") {
           const birmScore = convertChina985ToBirmingham(inputScore);
           degree = getDegreeForChina985(inputScore);
           comment = getCommentForDegree(degree);
-          output = `中国985分数 ${inputScore.toFixed(2)} 对应伯明翰分数为 ${birmScore.toFixed(2)}.`;
+          output = `中国985分数 ${inputScore.toFixed(2)} 对应英格兰分数为 ${birmScore.toFixed(2)}.`;
         }
       } else if (conversionType === "stChina") {
         const direction = directionSelect.value;
