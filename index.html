@@ -1,349 +1,282 @@
-<index.html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>分数转换系统</title>
+  <title>酒店专属邀请函</title>
   <style>
-    /* 果风风格样式 */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: #f2f2f7;
-      color: #1c1c1e;
-      margin: 0;
-      padding: 0;
+    /*── 全局 Reset ──*/
+    * { margin:0; padding:0; box‑sizing:border-box; }
+    html { scroll‑behavior: smooth; }
+    body { font-family: 'PingFang SC', sans-serif; color: #333; }
+    a { text-decoration: none; color: inherit; }
+
+    /*── 导航（可选固定） ──*/
+    nav { position: fixed; top:0; left:0; right:0; height:50px;
+      background: rgba(255,255,255,0.8); display:flex;
+      align-items:center; justify-content:center; z-index:100;
+      backdrop-filter: blur(6px);
     }
-    header {
-      background-color: #fff;
-      border-bottom: 1px solid #c6c6cc;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.8em;
-      font-weight: 600;
+    nav ul { display:flex; gap:16px; }
+    nav li { list-style:none; font-size:14px; cursor:pointer; }
+    nav li:hover { color:#ff7e5f; }
+
+    /*── 每个大区通用样式 ──*/
+    section {
+      width:100%; padding:80px 16px; position:relative;
+      display:flex; flex-direction:column; align-items:center;
+      text-align:center;
     }
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    h2 { font-size:28px; margin-bottom:16px; color:#222; }
+    p   { font-size:16px; line-height:1.6; margin-bottom:12px; }
+
+    img.divider {
+  display: block;         /* 作为块级元素 */
+  margin: 40px auto;      /* 上下 40px，左右居中 */
+  width: 100%;            /* 宽度占满父容器 */
+  max-width: 800px;       /* 可选：限制一个最大宽度 */
+  height: auto;           /* 保持图片原比例 */
+}
+
+
+    /*── 1 酒店LOGO区 ──*/
+    #logo-area img.logo {
+  width: 100%;       /* 宽度铺满 */
+  height: auto;      /* 保持比例 */
+  max-width: none;   /* 取消之前对 max-width 的限制（如果有） */
+  display: block;    /* 去除底部空白间隙 */
+}
+    /*── 2 地图+二维码 ──*/
+    #map-area {
+      background: #fff;
     }
-    .form-group {
-      margin-bottom: 20px;
+    #map-area .map-img {
+      width:80%; max-width:360px; border-radius:8px;
+      margin-bottom:12px;
     }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
+    
+
+    /*── 3 房号信息 ──*/
+    #room-info {
+      background: #fafafa;
     }
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      font-size: 1em;
-      border: 1px solid #d1d1d6;
-      border-radius: 10px;
-      box-sizing: border-box;
+    #room-info .info-list {
+      width:100%; max-width:400px;
+      text-align:left; font-size:16px;
     }
-    input:focus, select:focus {
-      outline: none;
-      border-color: #007aff;
-      box-shadow: 0 0 8px rgba(0, 122, 255, 0.3);
+    #room-info .info-list li {
+      margin:8px 0; list-style:none;
     }
-    button {
-      background-color: #007aff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s;
+    #room-info .info-list li span.label {
+      display:inline-block; width:80px; color:#666;
     }
-    button:hover {
-      background-color: #005bb5;
+
+    /*── 4 招牌菜推荐 ──*/
+    /* 横向滚动样式 */
+/* 横向滚动样式 */
+#dishes .dish-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 16px 0;
+  gap: 16px;
+  /* 让滚动更顺滑 */
+  -webkit-overflow-scrolling: touch;
+}
+/* 隐藏滚动条（仅 Webkit 浏览器） */
+#dishes .dish-scroll::-webkit-scrollbar {
+  display: none;
+}
+/* 保证每个菜品卡片不被压缩 */
+#dishes .dish {
+  flex: 0 0 auto;
+  width: 200px;         /* 根据需求调整宽度 */
+  text-align: center;
+}
+#dishes .dish img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+#dishes .dish-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+#dishes .dish-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+
+
+    /*── 5 包厢展示 ──*/
+    #rooms-show {
+      background: #fafafa;
     }
-    .hidden {
-      display: none;
+    #rooms-show .rooms-grid {
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:12px; width:100%; max-width:600px;
     }
-    .result {
-      margin-top: 30px;
-      font-size: 1.2em;
-      text-align: center;
-      color: #007aff;
+    #rooms-show .rooms-grid .item {
+      text-align:center;
     }
-    .instruction {
-      font-size: 0.9em;
-      color: #8e8e93;
-      margin-bottom: 20px;
+    #rooms-show .rooms-grid img {
+      width:100%; border-radius:6px; margin-bottom:6px;
     }
+    #rooms-show .rooms-grid .room-name { font-size:15px; }
+    #rooms-show .rooms-grid .room-cap  { font-size:13px; color:#777; }
+
+    /*── 6 底部LOGO／欢迎语 ──*/
+    #footer {
+      background: #fff; padding:60px 16px;
+    }
+    #footer img.logo-small {
+      width:80px; margin-bottom:12px;
+    }
+    #footer .footer-text {
+      font-size:14px; color:#555;
+    }
+
+    /*── Nav 点击滚动 ──*/
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
-  <header>
-    分数转换系统
-  </header>
-  <div class="container">
-    <div class="instruction">
-      请选择转换类型，并根据提示输入分数，系统将自动转换并显示对应的学位等级及评语。
+
+  <!-- 可选：固定导航 -->
+  <nav>
+    <ul>
+      <li data-target="#logo-area">首页</li>
+      <li data-target="#map-area">位置</li>
+      <li data-target="#room-info">房号</li>
+      <li data-target="#dishes">招牌菜</li>
+      <li data-target="#rooms-show">包厢</li>
+      <li data-target="#footer">底部</li>
+    </ul>
+  </nav>
+
+  <!-- 1 酒店LOGO区 -->
+  <section id="logo-area">
+    <!-- 替换：酒店 LOGO -->
+    <img class="logo" src="photos\logo1.jpg" alt="酒店 Logo">
+  </section>
+
+  <img class="divider" src="photos/divider.jpg" alt="分割线">
+
+<!-- 2 地图 + 二维码（可点击跳转导航） -->
+<section id="map-area">
+    <h2>高德地图导航</h2>
+  
+    <!-- —— 修改这里：将图片包裹在 <a> 中，并替换为你自己的经纬度 —— -->
+    <a
+      href="https://uri.amap.com/navigation?from=我的酒店名,116.480983,39.989628,我的位置&to=目的地名称,116.481488,39.989236,酒店目的地&mode=car&src=您的App名称|您的功能名称"
+      target="_blank"
+    >
+      <img class="map-img"
+           src="https://www.example.com/map.jpg"
+           alt="点击开启导航至酒店">
+    </a>
+  
+  
+  </section>
+
+  <img class="divider" src="photos/divider.jpg" alt="分割线">
+
+  <!-- 3 房号信息 -->
+  <section id="room-info">
+    <h2>房号预订信息</h2>
+    <ul class="info-list">
+      <li><span class="label">客户姓名：</span><span id="name">张三</span></li>
+      <li><span class="label">房号：</span><span id="room">101 / 贵宾厅</span></li>
+      <li><span class="label">时间：</span><span id="time">2025.08.15 14:00</span></li>
+      <li><span class="label">人数：</span><span id="count">12 人</span></li>
+      <li><span class="label">经理：</span>李四</li>
+      <li>
+        <span class="label">电话：</span>
+        <a href="tel:1234567890">123‑4567‑890</a>
+    </ul>
+  </section>
+
+  <img class="divider" src="photos/divider.jpg" alt="分割线">
+
+  <!-- 4 招牌菜推荐 -->
+  <section id="dishes">
+    <h2>招牌菜推荐</h2>
+    <!-- 横向滚动容器 -->
+    <div class="dish-scroll">
+      <div class="dish">
+        <img src="https://www.example.com/dish1.jpg" alt="松鼠桂鱼">
+        <div class="dish-name">松鼠桂鱼</div>
+        <div class="dish-desc">酸甜可口，外酥里嫩</div>
+      </div>
+      <div class="dish">
+        <img src="https://www.example.com/dish2.jpg" alt="干锅牛蛙">
+        <div class="dish-name">干锅牛蛙</div>
+        <div class="dish-desc">麻辣鲜香，回味无穷</div>
+      </div>
+      <!-- 继续复制 .dish 块，追加更多菜品 -->
     </div>
-    <form id="conversionForm">
-      <!-- 选择转换类型 -->
-      <div class="form-group">
-        <label for="conversionType">转换类型：</label>
-        <select id="conversionType">
-          <option value="stBirm">圣安德鲁斯 ↔ 英格兰</option>
-          <option value="birmChina">英格兰 ↔ 中国985</option>
-          <option value="stChina">圣安德鲁斯 ↔ 中国985</option>
-        </select>
+  </section>
+
+  <img class="divider" src="photos/divider.jpg" alt="分割线">
+
+  <!-- 5 包厢展示 -->
+  <section id="rooms-show">
+    <h2>包厢图展示</h2>
+    <div class="rooms-grid">
+      <div class="item">
+        <img src="https://www.example.com/room1.jpg" alt="包厢A">
+        <div class="room-name">包厢A</div>
+        <div class="room-cap">容纳 8–10 人</div>
       </div>
-      <!-- 如果需要选择转换方向 -->
-      <div class="form-group hidden" id="directionGroup">
-        <label for="direction">转换方向：</label>
-        <select id="direction">
-          <!-- 动态填充选项 -->
-        </select>
+      <div class="item">
+        <img src="https://www.example.com/room2.jpg" alt="包厢B">
+        <div class="room-name">包厢B</div>
+        <div class="room-cap">容纳 12–15 人</div>
       </div>
-      <!-- 输入分数 -->
-      <div class="form-group">
-        <label for="inputScore">输入分数（输入负数可退出此转换）：</label>
-        <input type="number" step="any" id="inputScore" placeholder="请输入分数">
+      <div class="item">
+        <img src="https://www.example.com/room3.jpg" alt="包厢C">
+        <div class="room-name">包厢C</div>
+        <div class="room-cap">容纳 20–25 人</div>
       </div>
-      <button type="submit">转换</button>
-    </form>
-    <div class="result" id="result"></div>
-  </div>
+    </div>
+  </section>
+
+  <img class="divider" src="photos/divider.jpg" alt="分割线">
+
+  <!-- 6 底部LOGO & 欢迎语 -->
+  <section id="footer">
+    <!-- 替换：再次出现 Logo -->
+    <img class="logo-small" src="https://www.example.com/logo.png" alt="酒店 Logo">
+    <!-- 替换：底部欢迎语 -->
+    <div class="footer-text">诚挚欢迎您的莅临，祝您用餐愉快！</div>
+  </section>
 
   <script>
-    // 转换函数与逻辑，根据你提供的Java代码
-
-    // 圣安德鲁斯 ↔ 伯明翰
-    function convertBirminghamToStAndrews(birminghamScore) {
-      if (birminghamScore >= 70) {
-        return 16.5 + (birminghamScore - 70) / (100 - 70) * (20 - 16.5);
-      } else if (birminghamScore >= 60) {
-        return 13.5 + (birminghamScore - 60) / (70 - 60) * (16.4 - 13.5);
-      } else if (birminghamScore >= 50) {
-        return 10.5 + (birminghamScore - 50) / (60 - 50) * (13.4 - 10.5);
-      } else if (birminghamScore >= 40) {
-        return 7.0 + (birminghamScore - 40) / (50 - 40) * (10.4 - 7.0);
-      } else {
-        return 6.9;
-      }
-    }
-
-    function convertStAndrewsToBirmingham(stAndrewsScore) {
-      if (stAndrewsScore >= 16.5) {
-        return 70 + (stAndrewsScore - 16.5) / (20 - 16.5) * (100 - 70);
-      } else if (stAndrewsScore >= 13.5) {
-        return 60 + (stAndrewsScore - 13.5) / (16.4 - 13.5) * (70 - 60);
-      } else if (stAndrewsScore >= 10.5) {
-        return 50 + (stAndrewsScore - 10.5) / (13.4 - 10.5) * (60 - 50);
-      } else if (stAndrewsScore >= 7.0) {
-        return 40 + (stAndrewsScore - 7.0) / (10.4 - 7.0) * (50 - 40);
-      } else {
-        return 0; // 不及格
-      }
-    }
-
-    // 伯明翰 ↔ 中国985
-    function convertBirminghamToChina985(birminghamScore) {
-      if (birminghamScore >= 70) {
-        return 85 + (birminghamScore - 70) / (100 - 70) * (100 - 85);
-      } else if (birminghamScore >= 60) {
-        return 80 + (birminghamScore - 60) / (70 - 60) * (85 - 80);
-      } else if (birminghamScore >= 50) {
-        return 70 + (birminghamScore - 50) / (60 - 50) * (80 - 70);
-      } else if (birminghamScore >= 40) {
-        return 60 + (birminghamScore - 40) / (50 - 40) * (70 - 60);
-      } else {
-        return 50; // 假设最低为50
-      }
-    }
-
-    function convertChina985ToBirmingham(chinaScore) {
-      if (chinaScore >= 85) {
-        return 70 + (chinaScore - 85) / (100 - 85) * (100 - 70);
-      } else if (chinaScore >= 80) {
-        return 60 + (chinaScore - 80) / (85 - 80) * (70 - 60);
-      } else if (chinaScore >= 70) {
-        return 50 + (chinaScore - 70) / (80 - 70) * (60 - 50);
-      } else if (chinaScore >= 60) {
-        return 40 + (chinaScore - 60) / (70 - 60) * (50 - 40);
-      } else {
-        return 30; // 假设最低为30
-      }
-    }
-
-    // 中国985 ↔ 圣安德鲁斯：借助伯明翰中转
-    // 圣安德鲁斯 -> 中国985: 先转换到伯明翰，再转换到中国985
-    function convertStAndrewsToChina985(stAndrewsScore) {
-      const birmScore = convertStAndrewsToBirmingham(stAndrewsScore);
-      return convertBirminghamToChina985(birmScore);
-    }
-    // 中国985 -> 圣安德鲁斯: 先转换到伯明翰，再转换到圣安德鲁斯
-    function convertChina985ToStAndrews(chinaScore) {
-      const birmScore = convertChina985ToBirmingham(chinaScore);
-      return convertBirminghamToStAndrews(birmScore);
-    }
-
-    // 学位与评语
-    function getDegreeForBirmingham(score) {
-      if (score >= 70) {
-        return "First Class";
-      } else if (score >= 60) {
-        return "Upper Second Class (2:1)";
-      } else if (score >= 50) {
-        return "Lower Second Class (2:2)";
-      } else if (score >= 40) {
-        return "Third Class";
-      } else {
-        return "Fail";
-      }
-    }
-
-    function getDegreeForStAndrews(score) {
-      if (score >= 16.5) {
-        return "First Class";
-      } else if (score >= 13.5) {
-        return "Upper Second Class (2:1)";
-      } else if (score >= 10.5) {
-        return "Lower Second Class (2:2)";
-      } else if (score >= 7.0) {
-        return "Third Class";
-      } else {
-        return "Fail";
-      }
-    }
-
-    function getDegreeForChina985(score) {
-      if (score >= 85) {
-        return "一等学位";
-      } else if (score >= 80) {
-        return "二等一学位 (2:1)";
-      } else if (score >= 70) {
-        return "二等二学位 (2:2)";
-      } else if (score >= 60) {
-        return "三等学位";
-      } else {
-        return "不及格";
-      }
-    }
-
-    function getCommentForDegree(degree) {
-      switch (degree) {
-        case "First Class":
-        case "一等学位":
-          return "Perfect!";
-        case "Upper Second Class (2:1)":
-        case "二等一学位 (2:1)":
-          return "Well done!";
-        case "Lower Second Class (2:2)":
-        case "二等二学位 (2:2)":
-          return "It's okay.";
-        case "Third Class":
-        case "三等学位":
-          return "Keep trying!";
-        case "Fail":
-        case "不及格":
-          return "Are you kidding me?";
-        default:
-          return "No comment.";
-      }
-    }
-
-    // 更新转换方向选项显示
-    const conversionTypeSelect = document.getElementById("conversionType");
-    const directionGroup = document.getElementById("directionGroup");
-    const directionSelect = document.getElementById("direction");
-
-    function updateDirectionOptions() {
-      const type = conversionTypeSelect.value;
-      // 对于圣安德鲁斯 ↔ 伯明翰，不需要用户选择转换方向
-      if (type === "stBirm") {
-        directionGroup.classList.add("hidden");
-      } else {
-        directionGroup.classList.remove("hidden");
-        // 根据不同的转换类型，设置方向选项
-        let options = "";
-        if (type === "birmChina") {
-          options += `<option value="birmToChina">英格兰 -> 中国985</option>`;
-          options += `<option value="chinaToBirm">中国985 -> 英格兰</option>`;
-        } else if (type === "stChina") {
-          options += `<option value="stToChina">圣安德鲁斯 -> 中国985</option>`;
-          options += `<option value="chinaToSt">中国985 -> 圣安德鲁斯</option>`;
-        }
-        directionSelect.innerHTML = options;
-      }
-    }
-
-    conversionTypeSelect.addEventListener("change", updateDirectionOptions);
-    updateDirectionOptions();
-
-    // 表单提交处理
-    document.getElementById("conversionForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const conversionType = conversionTypeSelect.value;
-      const inputScore = parseFloat(document.getElementById("inputScore").value);
-      const resultDiv = document.getElementById("result");
-      
-      if (isNaN(inputScore)) {
-        alert("请输入有效的分数！");
-        return;
-      }
-      
-      // 输入负数视为退出转换，清空结果
-      if (inputScore < 0) {
-        resultDiv.textContent = "已退出此转换。";
-        return;
-      }
-      
-      let output = "";
-      let degree = "";
-      let comment = "";
-      
-      if (conversionType === "stBirm") {
-        // 对于圣安德鲁斯 ↔ 伯明翰，根据分数大小判断转换方向
-        if (inputScore <= 20) {
-          // 假定输入在圣安德鲁斯分数范围
-          const birmScore = convertStAndrewsToBirmingham(inputScore);
-          degree = getDegreeForStAndrews(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `圣安德鲁斯分数 ${inputScore.toFixed(2)} 对应英格兰分数为 ${birmScore.toFixed(2)}.`;
-        } else {
-          // 假定输入在伯明翰分数范围
-          const stScore = convertBirminghamToStAndrews(inputScore);
-          degree = getDegreeForBirmingham(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `英格兰分数 ${inputScore.toFixed(2)} 对应圣安德鲁斯分数为 ${stScore.toFixed(2)}.`;
-        }
-      } else if (conversionType === "birmChina") {
-        const direction = directionSelect.value;
-        if (direction === "birmToChina") {
-          const chinaScore = convertBirminghamToChina985(inputScore);
-          degree = getDegreeForBirmingham(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `英格兰分数 ${inputScore.toFixed(2)} 对应中国985分数为 ${chinaScore.toFixed(2)}.`;
-        } else if (direction === "chinaToBirm") {
-          const birmScore = convertChina985ToBirmingham(inputScore);
-          degree = getDegreeForChina985(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `中国985分数 ${inputScore.toFixed(2)} 对应英格兰分数为 ${birmScore.toFixed(2)}.`;
-        }
-      } else if (conversionType === "stChina") {
-        const direction = directionSelect.value;
-        if (direction === "stToChina") {
-          const chinaScore = convertStAndrewsToChina985(inputScore);
-          degree = getDegreeForStAndrews(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `圣安德鲁斯分数 ${inputScore.toFixed(2)} 转换为中国985分数为 ${chinaScore.toFixed(2)}.`;
-        } else if (direction === "chinaToSt") {
-          const stScore = convertChina985ToStAndrews(inputScore);
-          degree = getDegreeForChina985(inputScore);
-          comment = getCommentForDegree(degree);
-          output = `中国985分数 ${inputScore.toFixed(2)} 转换为圣安德鲁斯分数为 ${stScore.toFixed(2)}.`;
-        }
-      }
-      
-      resultDiv.innerHTML = `${output}<br>${degree}。${comment}`;
+    // 导航滚动
+    document.querySelectorAll('nav li').forEach(li => {
+      li.onclick = () => {
+        const target = document.querySelector(li.dataset.target);
+        target && target.scrollIntoView({ behavior: 'smooth' });
+      };
     });
   </script>
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // 获取参数并更新页面
+    const name = getQueryParam("name");
+    const room = getQueryParam("room");
+    const time = getQueryParam("time");
+    const count = getQueryParam("count");
+
+    if (name) document.getElementById("name").innerText = decodeURIComponent(name);
+    if (room) document.getElementById("room").innerText = decodeURIComponent(room);
+    if (time) document.getElementById("time").innerText = decodeURIComponent(time);
+    if (count) document.getElementById("count").innerText = decodeURIComponent(count);
+  </script>
+
 </body>
 </html>
